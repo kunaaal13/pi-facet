@@ -1,0 +1,55 @@
+{
+  "name": "pi-facet",
+  "version": "0.1.0",
+  "description": "A clean, minimal, fully themeable TUI for the pi coding agent \u2014 Grok Build-inspired layout with Claude Code ergonomics.",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "tui",
+    "theme",
+    "shiki",
+    "diff"
+  ],
+  "author": "Kunaaal <kunaaal.rao@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kunaaal13/pi-facet.git"
+  },
+  "homepage": "https://github.com/kunaaal13/pi-facet#readme",
+  "bugs": {
+    "url": "https://github.com/kunaaal13/pi-facet/issues"
+  },
+  "files": [
+    "src",
+    "skins",
+    "themes",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ],
+    "themes": [
+      "./themes"
+    ]
+  },
+  "dependencies": {
+    "diff": "^8.0.2",
+    "shiki": "^3.13.0"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*",
+    "@earendil-works/pi-tui": "*"
+  },
+  "devDependencies": {
+    "@types/diff": "^7.0.2",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.6.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p ."
+  }
+}
