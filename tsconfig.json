@@ -13,19 +13,19 @@
     "baseUrl": ".",
     "paths": {
       "@earendil-works/pi-coding-agent": [
-        "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/dist/index.d.ts"
-      ],
-      "@earendil-works/pi-tui": [
-        "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-tui/dist/index.d.ts"
-      ],
-      "@earendil-works/pi-ai": [
-        "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai/dist/index.d.ts"
-      ],
-      "@earendil-works/pi-agent-core": [
-        "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-agent-core/dist/index.d.ts"
+        "./.pi-sdk/@earendil-works/pi-coding-agent/dist/index.d.ts"
       ],
       "@earendil-works/pi-coding-agent/*": [
-        "/opt/homebrew/lib/node_modules/@earendil-works/pi-coding-agent/*"
+        "./.pi-sdk/@earendil-works/pi-coding-agent/*"
+      ],
+      "@earendil-works/pi-tui": [
+        "./.pi-sdk/@earendil-works/pi-tui/dist/index.d.ts"
+      ],
+      "@earendil-works/pi-ai": [
+        "./.pi-sdk/@earendil-works/pi-ai/dist/index.d.ts"
+      ],
+      "@earendil-works/pi-agent-core": [
+        "./.pi-sdk/@earendil-works/pi-agent-core/dist/index.d.ts"
       ]
     }
   },

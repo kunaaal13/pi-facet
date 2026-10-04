@@ -3,6 +3,7 @@
  *   1. UserMessageComponent.render       → full-width prompt band + timestamp
  *   2. AssistantMessageComponent.updateContent → "∴ Thought for 2.0s", skinned markdown, timestamp
  *   3. stacking: drop the blank line between consecutive one-line rows
+ *   4. assistant Markdown.renderToken → dashed code frames (instance-local)
  *
  * Every patch checks the methods it wraps exist, keeps the original, and falls
  * back to it whenever the skin isn't loaded or a feature is switched off.
@@ -313,6 +314,28 @@ function transformChain(component: Any, messageType: string): (md: string, width
 
 // ─── components ──────────────────────────────────────────────────────────────
 
+/** Frame code tokens before Markdown adds list/quote prefixes and outer padding. */
+function boxCodeBlocks(markdown: Markdown, theme: MarkdownTheme): void {
+	const md = markdown as Any;
+	const original = md.renderToken;
+	if (typeof original !== "function") return;
+	md.renderToken = function (token: Any, width: number, nextTokenType?: string, ...rest: Any[]): string[] {
+		if (token.type !== "code" || width < 5) return original.call(this, token, width, nextTokenType, ...rest);
+		try {
+			const s = store.s;
+			const code = theme.highlightCode?.(token.text, token.lang) ?? token.text.split("\n").map(theme.codeBlock);
+			const content = code.flatMap((line: string) => wrapAnsi(line, innerWidth(width)));
+			const lang = String(token.lang ?? "").trim();
+			const label = lang && !["text", "txt", "plain", "plaintext"].includes(lang) ? s.fg("dim", lang) : "";
+			const lines = frame(content, width, { border: "border", dashed: true, topLeft: label });
+			if (nextTokenType && nextTokenType !== "space") lines.push("");
+			return lines;
+		} catch {
+			return original.call(this, token, width, nextTokenType, ...rest);
+		}
+	};
+}
+
 /** Collapses runs of blank lines (hidden code fences leave doubles). */
 class Tidy implements Component {
 	constructor(private readonly child: Component) {}
@@ -572,6 +595,7 @@ function updateAssistant(this: Any, original: Any, message: Any, isStreaming?: b
 			const md = new Markdown(block.text.trim(), 4, 0, theme, undefined, {
 				transform: transformChain(this, "assistant"),
 			});
+			boxCodeBlocks(md, theme);
 			const stamp = !stamped && cfg.replyTimestamps && message.timestamp ? s.fg("timestamp", fmtClock(message.timestamp, cfg.timeFormat)) : "";
 			stamped = true;
 			const tidy = new Bulleted(new Tidy(md), s.fg("replyBullet", s.glyphs.bullet));

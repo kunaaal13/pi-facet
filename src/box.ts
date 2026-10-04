@@ -9,8 +9,13 @@ import type { ColorToken } from "./skin.ts";
 import { store } from "./state.ts";
 import { clip, fit, visibleWidth } from "./util.ts";
 
+// Dashed rails on all four sides; corners come from the skin.
+const DASHED_RAILS = { h: "┈", v: "┊" };
+
 export interface FrameOptions {
 	border: ColorToken;
+	/** Dashed rails on every side, with the skin's existing corners. */
+	dashed?: boolean;
 	topLeft?: string;
 	topRight?: string;
 	bottomLeft?: string;
@@ -27,9 +32,9 @@ export function innerWidth(width: number, padX = 1): number {
 }
 
 /** ╭─ left ───────── right ─╮ with labels kept inside the width. */
-export function borderRow(kind: "top" | "bottom", width: number, border: ColorToken, left = "", right = ""): string {
+export function borderRow(kind: "top" | "bottom", width: number, border: ColorToken, left = "", right = "", dashed = false): string {
 	const s = store.s;
-	const g = s.glyphs.border;
+	const g = dashed ? { ...s.glyphs.border, ...DASHED_RAILS } : s.glyphs.border;
 	const b = (t: string) => s.fg(border, t);
 	const [startCorner, endCorner] = kind === "top" ? [g.tl, g.tr] : [g.bl, g.br];
 	const start = left ? `${startCorner}${g.h} ` : `${startCorner}${g.h}`;
@@ -52,15 +57,15 @@ export function frame(content: string[], width: number, opts: FrameOptions): str
 	const g = s.glyphs.border;
 	const padX = opts.padX ?? 1;
 	const inner = innerWidth(width, padX);
-	const side = s.fg(opts.border, g.v);
+	const side = s.fg(opts.border, opts.dashed ? DASHED_RAILS.v : g.v);
 	const pad = " ".repeat(padX);
 	const row = (line: string) => `${side}${pad}${fit(line, inner)}${pad}${side}`;
 	const blank = Array.from({ length: opts.padY ?? 0 }, () => row(""));
 	return [
-		borderRow("top", width, opts.border, opts.topLeft, opts.topRight),
+		borderRow("top", width, opts.border, opts.topLeft, opts.topRight, opts.dashed),
 		...blank,
 		...content.map(row),
 		...blank,
-		borderRow("bottom", width, opts.border, opts.bottomLeft, opts.bottomRight),
+		borderRow("bottom", width, opts.border, opts.bottomLeft, opts.bottomRight, opts.dashed),
 	];
 }

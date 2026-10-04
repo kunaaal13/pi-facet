@@ -50,6 +50,8 @@
     "typescript": "^5.6.0"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit -p ."
+    "link-pi": "node scripts/link-pi.mjs",
+    "typecheck": "node scripts/link-pi.mjs && tsc --noEmit -p .",
+    "harness": "node scripts/link-pi.mjs && npx tsx --tsconfig scripts/tsconfig.json scripts/harness.ts"
   }
 }

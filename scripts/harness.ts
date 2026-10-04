@@ -2,8 +2,9 @@
  * Render harness: runs the real tools against a temp project and renders our
  * components with pi's real classes, without starting the TUI.
  *
- *   npx tsx --tsconfig scripts/tsconfig.json scripts/harness.ts [width] [out.ansi]
+ *   npm run harness -- [width] [out.ansi] [skin]
  */
+import assert from "node:assert/strict";
 import { mkdtempSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -213,6 +214,29 @@ out.push(...editor.render(width));
 out.push(...new Footer({ getExtensionStatuses: () => new Map([["caveman", "caveman·lite"], ["usage", "5h 42%"]]), getGitBranch: () => "main" }).render(width));
 
 const { visibleWidth } = await import("@earendil-works/pi-tui");
+// Code frames keep padding, close streamed fences, and wrap inside both rails.
+for (const text of [
+	"```js\nconst x = 1;\n\nconsole.log(x);\n```",
+	"```\nplain code\n```",
+	"```js\nconst streaming = true;",
+	"> ```js\n> const quoted = true;\n> ```",
+	"- Example:\n\n  ```js\n  const nested = true;\n  ```",
+	`\`\`\`text\n${"界🙂".repeat(40)}\n\`\`\``,
+]) {
+	const message = new AssistantMessageComponent({
+		role: "assistant", timestamp: Date.now(), content: [{ type: "text", text }], stopReason: "stop",
+	} as any, true);
+	for (const w of [20, 40, 80, 120]) {
+		const lines = message.render(w);
+		assert(lines.every((line) => visibleWidth(line) <= w), `code frame overflow at ${w}: ${text}`);
+		const plain = lines.map((line) => line.replace(/\x1b\[[0-9;]*m/g, ""));
+		assert.equal(plain.filter((line) => line.includes("┈")).length, 2, `missing code borders: ${text}`);
+		const rows = plain.filter((line) => (line.match(/┊/g) ?? []).length === 2);
+		assert(rows.length > 0, `missing code content: ${text}`);
+		assert(rows.every((line) => line.trimEnd().endsWith("┊")), `broken code rails: ${text}`);
+	}
+}
+console.error("code frame checks: passed (plain, highlighted, streaming, nested, wide characters; 20–120 columns)");
 const over = out.filter((l) => visibleWidth(l) > width);
 console.error(`overflow lines at width ${width}: ${over.length}`);
 if (outFile) writeFileSync(outFile, out.join("\n"));
