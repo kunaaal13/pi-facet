@@ -1,4 +1,4 @@
-# pi-facet
+# pi-minimal-tui
 
 A clean, minimal TUI for [pi](https://github.com/earendil-works/pi): Grok Build's layout with Claude Code's ergonomics. Everything is themeable.
 
@@ -47,7 +47,7 @@ A clean, minimal TUI for [pi](https://github.com/earendil-works/pi): Grok Build'
 ## Install
 
 ```bash
-pi install npm:pi-facet          # or, from a checkout: pi install /path/to/pi-facet
+pi install npm:pi-minimal-tui          # or, from a checkout: pi install /path/to/pi-minimal-tui
 ```
 
 Remove other packages that re-render the built-in tools, such as `pi-claude-code-ui`, `pi-tool-display` and `pi-pretty`. For pi, the first registration of a tool name wins.
@@ -69,7 +69,7 @@ Recommended in `~/.pi/agent/settings.json`: `"hideThinkingBlock": true`, so thin
 
 ### Config
 
-`~/.pi/agent/pi-facet.json`. A project file at `<project>/.pi/pi-facet.json` overrides it. Every key is optional; the defaults are:
+`~/.pi/agent/pi-minimal-tui.json`. A project file at `<project>/.pi/pi-minimal-tui.json` overrides it. Every key is optional; the defaults are:
 
 ```jsonc
 {
@@ -98,7 +98,7 @@ Recommended in `~/.pi/agent/settings.json`: `"hideThinkingBlock": true`, so thin
 
 ### Custom skins
 
-Drop a JSON file in `~/.pi/agent/pi-facet/skins/<name>.json`, then run `/tui theme <name>`. Any token you leave out falls back to the active pi theme, so a skin can be as small as:
+Drop a JSON file in `~/.pi/agent/pi-minimal-tui/skins/<name>.json`, then run `/tui theme <name>`. Any token you leave out falls back to the active pi theme, so a skin can be as small as:
 
 ```json
 { "name": "mine", "colors": { "accent": "#ff79c6", "path": "#8be9fd", "band": "#282a36" } }
@@ -150,7 +150,7 @@ Pi has no API for a few things, which are small, guarded prototype patches in `s
 
 Each patch checks that the method exists, and falls back to pi's own rendering on any error. All of them are removed on session shutdown. If a pi update changes these internals, you get a warning and stock rendering for that one part; nothing breaks.
 
-Message content is never changed. Thinking durations live in a hidden custom session entry (`pi-facet:thinking`).
+Message content is never changed. Thinking durations live in a hidden custom session entry (`pi-minimal-tui:thinking`).
 
 ## Development
 

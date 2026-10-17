@@ -17,7 +17,7 @@ export const BODY_INDENT = 6;
 export const HEADER_INDENT = 2;
 
 /** Marker stamped on tool definitions we own, so the stacking patch only touches ours. */
-export const PMT_TOOL = Symbol.for("pi-facet.tool");
+export const PMT_TOOL = Symbol.for("pi-minimal-tui.tool");
 
 export type Status = "pending" | "running" | "done" | "error";
 

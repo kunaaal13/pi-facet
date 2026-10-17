@@ -1,11 +1,11 @@
 /**
- * Skins: the colour + glyph system for everything pi-facet draws.
+ * Skins: the colour + glyph system for everything pi-minimal-tui draws.
  *
  * A skin is JSON: { name, appearance, piTheme?, shiki?, colors, glyphs }.
  * Colour values may be "#rrggbb", any pi colour syntax (oklch(), okhsl(), 0-255),
  * the name of another skin token ("accent"), or "pi:<token>" to borrow from the
  * active pi theme. Built-in skins live in ../skins, user skins in
- * ~/.pi/agent/pi-facet/skins (same name overrides a built-in).
+ * ~/.pi/agent/pi-minimal-tui/skins (same name overrides a built-in).
  */
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, dirname, join } from "node:path";

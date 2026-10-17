@@ -1,5 +1,5 @@
 /**
- * pi-facet — a clean, Grok Build-style TUI for pi.
+ * pi-minimal-tui — a clean, Grok Build-style TUI for pi.
  *
  * Supported APIs do almost everything (tools, editor, widgets, footer, header,
  * title, commands). Prompt bands, "Thought for Xs" and row stacking need small
@@ -127,8 +127,8 @@ export default function piMinimalTui(pi: ExtensionAPI): void {
 		loadThinking(ctx);
 		mountChrome(ctx);
 		setTitle();
-		for (const e of errors) ctx.ui.notify(`pi-facet: ${e}`, "warning");
-		if (failed.length) ctx.ui.notify(`pi-facet: couldn't hook ${failed.join(", ")} (pi internals changed) — using stock rendering there`, "warning");
+		for (const e of errors) ctx.ui.notify(`pi-minimal-tui: ${e}`, "warning");
+		if (failed.length) ctx.ui.notify(`pi-minimal-tui: couldn't hook ${failed.join(", ")} (pi internals changed) — using stock rendering there`, "warning");
 	});
 
 	pi.on("session_shutdown", () => {

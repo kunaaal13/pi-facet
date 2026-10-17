@@ -69,7 +69,7 @@ async function toggleTimestamps(ctx: ExtensionCommandContext, value?: string): P
 
 export function registerCommands(pi: ExtensionAPI): void {
 	pi.registerCommand("tui", {
-		description: "pi-facet: skin, code theme, diff layout, timestamps, reload",
+		description: "pi-minimal-tui: skin, code theme, diff layout, timestamps, reload",
 		getArgumentCompletions: (prefix: string) => {
 			const [sub, arg = ""] = prefix.split(/\s+/, 2);
 			if (prefix.includes(" ")) {
@@ -102,7 +102,7 @@ export function registerCommands(pi: ExtensionAPI): void {
 				case "reload": {
 					const errors = applyConfigAndSkin(ctx);
 					for (const e of errors) ctx.ui.notify(e, "warning");
-					ctx.ui.notify("pi-facet reloaded", "info");
+					ctx.ui.notify("pi-minimal-tui reloaded", "info");
 					return;
 				}
 				case "paths":
@@ -117,7 +117,7 @@ export function registerCommands(pi: ExtensionAPI): void {
 					);
 					return;
 				case undefined: {
-					const choice = await ctx.ui.select("pi-facet", [
+					const choice = await ctx.ui.select("pi-minimal-tui", [
 						`Skin… (${store.config.theme})`,
 						`Code theme… (${currentShikiTheme()})`,
 						`Diff layout… (${store.config.diff.layout})`,

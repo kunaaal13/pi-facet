@@ -384,7 +384,7 @@ function registerWrite(pi: ExtensionAPI): void {
 					};
 					ctx.state.detail = muted(`(${plural(lines.length, "line")})`);
 				}
-				// Sessions recorded before pi-facet don't say whether the write created
+				// Sessions recorded before this package don't say whether the write created
 				// the file, so don't paint a possible overwrite as all-new; show it on Ctrl+O.
 				const legacy = info === undefined && !ctx.expanded;
 				if (!diff || diff.rows.length === 0 || legacy || (!store.config.tools.expandEdits && !ctx.expanded)) {

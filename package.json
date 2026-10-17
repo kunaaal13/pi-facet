@@ -1,5 +1,5 @@
 {
-  "name": "pi-facet",
+  "name": "pi-minimal-tui",
   "version": "0.1.0",
   "description": "A clean, minimal, fully themeable TUI for the pi coding agent \u2014 Grok Build-inspired layout with Claude Code ergonomics.",
   "type": "module",
@@ -15,11 +15,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kunaaal13/pi-facet.git"
+    "url": "git+https://github.com/kunaaal13/pi-minimal-tui.git"
   },
-  "homepage": "https://github.com/kunaaal13/pi-facet#readme",
+  "homepage": "https://github.com/kunaaal13/pi-minimal-tui#readme",
   "bugs": {
-    "url": "https://github.com/kunaaal13/pi-facet/issues"
+    "url": "https://github.com/kunaaal13/pi-minimal-tui/issues"
   },
   "files": [
     "src",

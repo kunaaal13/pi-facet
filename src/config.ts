@@ -1,6 +1,6 @@
 /**
- * Configuration: ~/.pi/agent/pi-facet.json, overridden per project by
- * <cwd>/.pi/pi-facet.json. Loaded once per session (and on /tui reload),
+ * Configuration: ~/.pi/agent/pi-minimal-tui.json, overridden per project by
+ * <cwd>/.pi/pi-minimal-tui.json. Loaded once per session (and on /tui reload),
  * never on render paths.
  */
 import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from "node:fs";
@@ -10,7 +10,7 @@ import { dirname, join } from "node:path";
 export type DiffLayout = "auto" | "unified" | "split";
 
 export interface Config {
-	/** Skin name: a built-in (groknight, grokday, auto) or a file in ~/.pi/agent/pi-facet/skins. */
+	/** Skin name: a built-in (groknight, grokday, auto) or a file in ~/.pi/agent/pi-minimal-tui/skins. */
 	theme: string;
 	/** Also switch pi's own theme to the skin's `piTheme` when the skin is applied. */
 	applyPiTheme: boolean;
@@ -144,15 +144,15 @@ export const DEFAULT_CONFIG: Config = {
 	animation: { intervalMs: 100 },
 };
 
-export const GLOBAL_CONFIG_PATH = join(homedir(), ".pi", "agent", "pi-facet.json");
-export const USER_SKINS_DIR = join(homedir(), ".pi", "agent", "pi-facet", "skins");
+export const GLOBAL_CONFIG_PATH = join(homedir(), ".pi", "agent", "pi-minimal-tui.json");
+export const USER_SKINS_DIR = join(homedir(), ".pi", "agent", "pi-minimal-tui", "skins");
 
-/** Paths from before the rename to pi-facet, read when the new ones don't exist yet. */
-const LEGACY_NAME = "pi-minimal-tui";
+/** Paths from when the package was named pi-facet, read when the new ones don't exist yet. */
+const LEGACY_NAME = "pi-facet";
 export const LEGACY_USER_SKINS_DIR = join(homedir(), ".pi", "agent", LEGACY_NAME, "skins");
 
 export function projectConfigPath(cwd: string): string {
-	return join(cwd, ".pi", "pi-facet.json");
+	return join(cwd, ".pi", "pi-minimal-tui.json");
 }
 
 /** A config path if it exists, else its pre-rename sibling if that exists, else the new path. */

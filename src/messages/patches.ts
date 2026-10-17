@@ -39,7 +39,7 @@ import { runDuration } from "./thinking.ts";
 const OSC_A = "\x1b]133;A\x07";
 const OSC_BC = "\x1b]133;B\x07\x1b]133;C\x07";
 
-const PATCHED = Symbol.for("pi-facet.patched");
+const PATCHED = Symbol.for("pi-minimal-tui.patched");
 const originals: Array<() => void> = [];
 
 type Any = any;

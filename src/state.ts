@@ -35,7 +35,7 @@ class Store {
 	}
 
 	get s(): Skin {
-		if (!this.skin) throw new Error("pi-facet: skin not initialised");
+		if (!this.skin) throw new Error("pi-minimal-tui: skin not initialised");
 		return this.skin;
 	}
 }

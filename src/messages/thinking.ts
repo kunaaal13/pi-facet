@@ -5,9 +5,9 @@
  */
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
-export const THINKING_ENTRY = "pi-facet:thinking";
-/** Written by sessions recorded before the rename to pi-facet. */
-const LEGACY_THINKING_ENTRY = "pi-minimal-tui:thinking";
+export const THINKING_ENTRY = "pi-minimal-tui:thinking";
+/** Written by sessions recorded while the package was named pi-facet. */
+const LEGACY_THINKING_ENTRY = "pi-facet:thinking";
 
 interface Span {
 	start: number;

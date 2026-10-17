@@ -186,7 +186,7 @@ export function warmUp(): Promise<void> {
 				try {
 					await loadTheme(key);
 				} catch (err) {
-					store.ctx?.ui.notify(`pi-facet: ${err instanceof Error ? err.message : String(err)} — using tokyo-night`, "warning");
+					store.ctx?.ui.notify(`pi-minimal-tui: ${err instanceof Error ? err.message : String(err)} — using tokyo-night`, "warning");
 					await loadTheme("tokyo-night");
 				}
 				if (themeKey !== key) return;

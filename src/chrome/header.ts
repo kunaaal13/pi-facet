@@ -1,5 +1,5 @@
 /**
- * Startup header: the pi-facet mark (three blocks on a 4×4 grid, drawn
+ * Startup header: the pi-minimal-tui mark (three blocks on a 4×4 grid, drawn
  * with half-blocks so cells come out square) beside a short info column. On
  * startup the pieces drop into place, tetris-style, then it sits still.
  *
